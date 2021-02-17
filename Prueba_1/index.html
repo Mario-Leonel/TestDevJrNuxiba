@@ -9,44 +9,76 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
 </head>
-<body>
+<body class="container">
     <h1>Consumiendo Api de jsonplaceholder</h1>
-   <!--- <section>
-        <h2 class="title">listar usuarios</h2>
-        <form action="" class="crudForm">
-            <input type="text" class="titulo form-control">
-            <input type="checkbox" name="completada" id="completada" class="completada form-control">
-            <button class="btn btn-success"></button>
-        </form>
-    </section>-->
-    <section class="usuarios" id="usuarios">
-        <h2 class="todos">Todos los usuarios</h2>
-        <table class="table">
-            <thead>
-                <tr>
-                <th>nombre</th>
-                <th></th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-   
-    </section>
-    <section class="detalles" id="detalle">
-        <h2 >Detalles de usuario</h2>
-        <article>
-            <h3 class="name"></h3>
-            <h3 class="usernamer"></h3>
-            <h3 class="email"></h3>
-            <p>
-                <a  href="#posts" class="btn btn-success posts" id=""> posts</a>
-                <a  href="#todos" class="btn btn-primary todos" id=""> todos</a>
+    <div class="row">
+        <div class="col-md-6">
+            <section class="usuarios" id="usuarios">
+                <h2 class="todos">Todos los usuarios</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                        <th>nombre</th>
+                        <th></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+           
+            </section>
+        </div>
+        <div class="col-md-6">
+            <section class="detalles" id="detalle">
+                <h2 >Detalles de usuario</h2>
+                <article>
+                    <H4 class="name"></h4>
+                    <p class="username"></p>
+                    <p class="email"></p>
+                    <p class="address">
+                        <h6 class="street"></h6>
+                        <h6 class="suite"></h6>
+                        <h6 class="city"></h6>
+                    </p>
+                    <p class="phone"></p>
+                    <p class="website"></p>
+ 
+                    <p>
+                        <a  href="#coment" class="btn btn-success posts" id=""> posts</a>
+                        <a  href="#task" class="btn btn-primary tod" id=""> todos</a>
+        
+                    </p>
+                </article>
+            </section>
+        </div>
 
-            </p>
-                    </article>
-   
-   
+    </div>
+    
+    
+    <section id="coment" class="coment">
+        <h2>Post Y Comentarios</h2>
     </section>
+    <hr>
+    <div class="row">
+            <div class="col-md-6">
+                <section id="task" class="task">
+                    <h2>tareas</h2>
+                </section>
+            </div>
+            <div class="col-md-6">
+                <form action="" class="neTask">
+                    <label class=" mb-2" for="tarea">Tarea a realizar</label>
+                    <input type="text" class="titulo form-control mb-3" id="tarea">
+                    <input type="checkbox" class="btn-check" id="complete" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="complete">terminada</label>
+                    <br>
+                    <button class="btn btn-success mt-3">Enviar</button>
+                </form>
+            </div>
+
+    </div>
+  
+
+
     <template  id="verUsuarios">
         <tr>
             <td class="nombre"></td>
@@ -59,60 +91,29 @@
         <h1 class="nombre"></h1>
     </template>
 
+    <template  id="templComentario">
+        <article>
+            <h5 class="titlePost h5"></h3>
+            <p class="bodyPost h6"></p><br>
+            <small class="bod h6"></small>
+            <small class="com h6"></small>
+            <small class="em h6"></small>
+
+          
+
+        </article>
+    </template>
+    <template  id="templTask">
+        <article>
+            <p class="userId h6"></p>
+            <h5 class="titleTask h6"></h3>
+            <p class="completed h6"></p>
+        </article>
+        <hr>
+    </template>
+
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
-
-<script>
-    const d=document,
-    $table=d.querySelector('table'),
-    $deta=d.querySelector('.detalles'),
-    $ver=d.querySelector('.ver'),
-    $title=d.querySelector('title'),
-    $template=d.getElementById('verUsuarios').content,
-    $templDe=d.getElementById('templDetalles').content,
-    $fragment=d.createDocumentFragment();
-
-    fetch('https://jsonplaceholder.typicode.com/users')
-        .then((response) => response.json())
-        .then((json) => {
-            json.forEach(element => {
-                $template.querySelector(".nombre").textContent= element.name;
-                $template.querySelector(".ver").setAttribute('id', element.id);
-
-                let $clone =d.importNode($template,true);
-                $fragment.appendChild($clone);
-
-            });
-            $table.querySelector("tbody").appendChild($fragment);        
-        });
-
-        /////////////
-        d.addEventListener('click',async e=>{
-           
-           if(e.target.matches(".ver")){
-               
-               fetch('https://jsonplaceholder.typicode.com/users/'+e.target.id)
-               .then((response) => response.json())
-               .then((json) =>{
-                  d.querySelector(".name").textContent= json.address.city;
-                  d.querySelector(".posts").setAttribute('id', json.id);
-
-            
-                  
-               });
-           }
-       });
-       /////////////////////////
-        d.addEventListener('click',async e=>{
-           
-            if(e.target.matches(".posts")){
-                
-                fetch('https://jsonplaceholder.typicode.com/users/'+e.target.id+'/posts')
-                .then((response) => response.json())
-                .then((json) =>console.log(json));
-            }
-        });
-  
-</script>
+<script src="api.js"></script>
 </html>
