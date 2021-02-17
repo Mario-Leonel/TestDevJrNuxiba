@@ -110,7 +110,7 @@ fetch('https://jsonplaceholder.typicode.com/users')
    d.addEventListener('submit',async e=>{
        
     if(e.target.matches(".neTask")){
-        fetch('https://jsonplaceholder.typicode.com/posts', {
+        fetch('https://jsonplaceholder.typicode.com/users/1/todos', {
             method: 'POST',
             body: JSON.stringify({
               title: 'ejemplo',
